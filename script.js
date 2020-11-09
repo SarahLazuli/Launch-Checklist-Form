@@ -33,10 +33,15 @@ window.addEventListener("load", function() {
       let fuelStatus = document.getElementById("fuelStatus");
       let cargoStatus = document.getElementById("cargoStatus");
 
+      let fieldsFilled = true;
+      let fieldsCorrect = true;
+
       if (pilotNameInput.value === "" || copilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
          alert("All fields are required!");
+         fieldsFilled = false;
       } else if (!isNaN(pilotNameInput.value) || !isNaN(copilotNameInput.value) || isNaN(fuelLevelInput.value) || isNaN(cargoMassInput.value)) {
          alert("Make sure to enter valid information for each field!");
+         fieldsCorrect = false;
       }
 
       pilotStatus.innerHTML = `Pilot ${pilotNameInput.value} is ready for launch`;
@@ -60,6 +65,10 @@ window.addEventListener("load", function() {
          launchStatus.style.color = 'red';
          fuelStatus.innerHTML = `Fuel level high enough for launch`;
          cargoStatus.innerHTML = `Cargo mass too high for launch`;
+      } else if (fieldsCorrect === false || fieldsFilled === false) {
+         launchStatus.innerHTML = `Shuttle not ready for launch`;
+         launchStatus.style.color = 'red';
+         faultyItemsList.style.visibility = 'hidden';
       } else {
          launchStatus.innerHTML = `Shuttle is ready for launch`;
          launchStatus.style.color = 'green';
